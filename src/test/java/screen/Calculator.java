@@ -2,29 +2,30 @@ package screen;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
-import org.openqa.selenium.By;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.iOSFindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class Calculator {
 
+	@iOSFindBy(name="2")
 	private MobileElement button2;
 
+	@iOSFindBy(name="3")
 	private MobileElement button3;
 
+	@iOSFindBy(name="=")
 	private MobileElement buttonEquals;
 
+	@iOSFindBy(name="×")
 	private MobileElement buttonMultiply;
 
+	@iOSFindBy(xpath="//UIAApplication[1]/UIAWindow[1]/UIAStaticText[1]")
 	private MobileElement resultField;
 
-	IOSDriver driver;
 
 	public Calculator(IOSDriver driver) {
-		this.driver = driver;
-		button3 = (MobileElement)driver.findElement(By.name("3"));
-		button2 = (MobileElement)driver.findElement(By.name("2"));
-		buttonMultiply  = (MobileElement)driver.findElement(By.name("×"));
-		buttonEquals  = (MobileElement)driver.findElement(By.name("="));
-		resultField = (MobileElement)driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[1]/UIAStaticText[1]"));
+		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
 
 	public Calculator press2() {
