@@ -8,11 +8,11 @@ import java.net.URL;
 
 public abstract class AbstractTest {
 
-	private static final String TESTOBJECT_API_KEY = getEnvOrFail("TESTOBJECT_API_KEY");
-	private static final String TESTOBJECT_APP_ID = getEnvOrFail("TESTOBJECT_APP_ID");
-	private static final String APPIUM_SERVER = getEnvOrDefault("APPIUM_SERVER", "https://app.testobject.com:443/api/appium/wd/hub");
-	private static final String TESTOBJECT_DEVICE = getEnvOrDefault("TESTOBJECT_DEVICE", "iPhone_5S_16GB_real");
-	private static final String TESTOBJECT_APPIUM_VERSION = getEnvOrDefault("TESTOBJECT_APPIUM_VERSION", "1.4.10");
+	protected static final String TESTOBJECT_API_KEY = getEnvOrFail("TESTOBJECT_API_KEY");
+	protected static final String TESTOBJECT_APP_ID = getEnvOrFail("TESTOBJECT_APP_ID");
+	protected static final String APPIUM_SERVER = getEnvOrDefault("APPIUM_SERVER", "https://app.testobject.com:443/api/appium/wd/hub");
+	protected static final String TESTOBJECT_DEVICE = getEnvOrDefault("TESTOBJECT_DEVICE", "iPhone_5S_16GB_real");
+	protected static final String TESTOBJECT_APPIUM_VERSION = getEnvOrDefault("TESTOBJECT_APPIUM_VERSION", "1.3.7");
 
 	protected IOSDriver driver;
 
@@ -41,7 +41,7 @@ public abstract class AbstractTest {
 		}
 	}
 
-	private static String getEnvOrFail(String environmentVariable) {
+	protected static String getEnvOrFail(String environmentVariable) {
 		String value = System.getenv(environmentVariable);
 		if (value == null) {
 			throw new RuntimeException("Missing required environment variable " + environmentVariable);
@@ -50,7 +50,7 @@ public abstract class AbstractTest {
 		}
 	}
 
-	private static String getEnvOrDefault(String environmentVariable, String defaultValue) {
+	protected static String getEnvOrDefault(String environmentVariable, String defaultValue) {
 		String value = System.getenv(environmentVariable);
 		if (value == null) {
 			return defaultValue;
