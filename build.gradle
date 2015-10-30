@@ -17,3 +17,9 @@ dependencies {
 
     testCompile 'io.appium:java-client:3.1.0'
 }
+
+test {
+    testLogging {
+        exceptionFormat = 'full'
+    }
+}
