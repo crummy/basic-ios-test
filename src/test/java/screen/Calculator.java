@@ -6,6 +6,8 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.pagefactory.iOSFindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import static org.junit.Assert.assertEquals;
+
 public class Calculator {
 
 	@iOSFindBy(name="2")
@@ -49,6 +51,11 @@ public class Calculator {
 
 	public Calculator pressMultiply() {
 		buttonMultiply.click();
+		return this;
+	}
+
+	public Calculator resultShouldEqual(String result) {
+		assertEquals("checking result is " + result, result, getResult());
 		return this;
 	}
 }

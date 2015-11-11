@@ -13,9 +13,8 @@ public class SimpleMathTest extends AbstractTest {
 				.pressMultiply()
 				.press2()
 				.press3()
-				.pressEquals();
-
-		assertThat("Verify result of 3 * 23", calculator.getResult(), is("69.0"));
+				.pressEquals()
+				.resultShouldEqual("69.0");
 	}
 
 }
