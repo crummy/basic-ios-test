@@ -12,7 +12,7 @@ public abstract class AbstractTest {
 	protected static final String TESTOBJECT_APP_ID = getEnvOrFail("TESTOBJECT_APP_ID");
 	protected static final String APPIUM_SERVER = getEnvOrDefault("APPIUM_SERVER", "https://app.testobject.com:443/api/appium/wd/hub");
 	protected static final String TESTOBJECT_DEVICE = getEnvOrDefault("TESTOBJECT_DEVICE", "iPhone_5S_16GB_real");
-	protected static final String TESTOBJECT_APPIUM_VERSION = getEnvOrDefault("TESTOBJECT_APPIUM_VERSION", "1.3.7");
+	protected static final String TESTOBJECT_APPIUM_VERSION = getEnvOrDefault("TESTOBJECT_APPIUM_VERSION", "1.4.16");
 
 	protected IOSDriver driver;
 
