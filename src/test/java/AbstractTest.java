@@ -5,6 +5,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.UUID;
 
 public abstract class AbstractTest {
 
@@ -26,12 +27,15 @@ public abstract class AbstractTest {
 
 		URL endpoint = new URL(APPIUM_SERVER);
 
+		// We generate a random UUID for later lookup in logs for debugging
+		String testUUID = UUID.randomUUID().toString();
+		System.out.println("TestUUID: " + testUUID);
+		capabilities.setCapability("testobject_testuuid", testUUID);
+
 		driver = new IOSDriver(endpoint, capabilities);
 
-		if (driver != null) {
-			System.out.println(driver.getCapabilities().getCapability("testobject_test_report_url"));
-			System.out.println(driver.getCapabilities().getCapability("testobject_test_live_view_url"));
-		}
+		System.out.println(driver.getCapabilities().getCapability("testobject_test_report_url"));
+		System.out.println(driver.getCapabilities().getCapability("testobject_test_live_view_url"));
 	}
 
 	@After

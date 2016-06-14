@@ -6,11 +6,9 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by crummy on 29.10.15.
- */
 public class WebTest extends AbstractTest {
 	private static String TESTOBJECT_API_KEY_WEB = getEnvOrFail("TESTOBJECT_API_KEY_WEB");
 	private static String TESTOBJECT_APP_ID_WEB = getEnvOrDefault("TESTOBJECT_APP_ID_WEB", "1");
@@ -27,12 +25,15 @@ public class WebTest extends AbstractTest {
 
 		URL endpoint = new URL(APPIUM_SERVER);
 
+		// We generate a random UUID for later lookup in logs for debugging
+		String testUUID = UUID.randomUUID().toString();
+		System.out.println("TestUUID: " + testUUID);
+		capabilities.setCapability("testobject_testuuid", testUUID);
+
 		driver = new IOSDriver(endpoint, capabilities);
 
-		if (driver != null) {
-			System.out.println(driver.getCapabilities().getCapability("testobject_test_report_url"));
-			System.out.println(driver.getCapabilities().getCapability("testobject_test_live_view_url"));
-		}
+		System.out.println(driver.getCapabilities().getCapability("testobject_test_report_url"));
+		System.out.println(driver.getCapabilities().getCapability("testobject_test_live_view_url"));
 	}
 
 	@Test
