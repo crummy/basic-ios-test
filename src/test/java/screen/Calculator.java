@@ -10,16 +10,16 @@ import static org.junit.Assert.assertEquals;
 
 public class Calculator {
 
-	@iOSFindBy(name="2")
+	@iOSFindBy(accessibility="2")
 	private MobileElement button2;
 
-	@iOSFindBy(name="3")
+	@iOSFindBy(accessibility="3")
 	private MobileElement button3;
 
-	@iOSFindBy(name="=")
+	@iOSFindBy(accessibility="=")
 	private MobileElement buttonEquals;
 
-	@iOSFindBy(name="×")
+	@iOSFindBy(accessibility="×")
 	private MobileElement buttonMultiply;
 
 	@iOSFindBy(xpath="//UIAApplication[1]/UIAWindow[1]/UIAStaticText[1]")
