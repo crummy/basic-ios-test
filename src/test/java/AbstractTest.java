@@ -14,6 +14,7 @@ public abstract class AbstractTest {
 	protected static final String APPIUM_SERVER = getEnvOrDefault("APPIUM_SERVER", "https://app.testobject.com:443/api/appium/wd/hub");
 	protected static final String TESTOBJECT_DEVICE = getEnvOrDefault("TESTOBJECT_DEVICE", "iPhone_5_16GB_real");
 	protected static final String TESTOBJECT_APPIUM_VERSION = getEnvOrDefault("TESTOBJECT_APPIUM_VERSION", "1.5.2");
+	protected static final String TESTOBJECT_CACHE_DEVICE = getEnvOrDefault("TESTOBJECT_CACHE_DEVICE", "false");
 
 	protected IOSDriver driver;
 
@@ -40,7 +41,7 @@ public abstract class AbstractTest {
 
 	@After
 	public void tearDown() {
-		if(driver != null) {
+		if (driver != null) {
 			driver.quit();
 		}
 	}
@@ -62,6 +63,5 @@ public abstract class AbstractTest {
 			return value;
 		}
 	}
-
 
 }
