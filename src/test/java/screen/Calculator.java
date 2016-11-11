@@ -22,7 +22,7 @@ public class Calculator {
 	@iOSFindBy(accessibility="×")
 	private MobileElement buttonMultiply;
 
-	@iOSFindBy(xpath="//UIAApplication[1]/UIAWindow[1]/UIAStaticText[1]")
+	@iOSFindBy(xpath="//XCUIElementTypeStaticText|//UIAApplication[1]/UIAWindow[1]/UIAStaticText[1]")
 	private MobileElement resultField;
 
 
