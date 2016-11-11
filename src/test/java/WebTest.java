@@ -2,6 +2,7 @@ import io.appium.java_client.ios.IOSDriver;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
@@ -42,6 +43,8 @@ public class WebTest extends AbstractTest {
 
 		String url = "http://www.amazon.com";
 		driver.get(url);
+		driver.rotate(ScreenOrientation.LANDSCAPE);
+		driver.rotate(ScreenOrientation.PORTRAIT);
 
 		takeScreenshot();
 	}

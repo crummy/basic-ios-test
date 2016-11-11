@@ -1,13 +1,12 @@
 import org.junit.Test;
 import screen.Calculator;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 public class SimpleMathTest extends AbstractTest {
 
 	@Test
 	public void AdditionTest() {
+		System.out.println(driver.getPageSource());
+
 		Calculator calculator = new Calculator(driver)
 				.press3()
 				.pressMultiply()
