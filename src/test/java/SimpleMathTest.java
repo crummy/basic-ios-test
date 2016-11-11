@@ -5,6 +5,7 @@ public class SimpleMathTest extends AbstractTest {
 
 	@Test
 	public void AdditionTest() {
+
 		System.out.println(driver.getPageSource());
 
 		Calculator calculator = new Calculator(driver)
