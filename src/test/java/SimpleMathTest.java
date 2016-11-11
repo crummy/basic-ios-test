@@ -8,7 +8,7 @@ public class SimpleMathTest extends AbstractTest {
 
 		System.out.println(driver.getPageSource());
 
-		Calculator calculator = new Calculator(driver)
+		new Calculator(driver)
 				.press3()
 				.pressMultiply()
 				.press2()
