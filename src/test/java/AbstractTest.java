@@ -9,14 +9,14 @@ import java.util.UUID;
 
 public abstract class AbstractTest {
 
-	protected static final String TESTOBJECT_API_KEY = getEnvOrFail("TESTOBJECT_API_KEY");
-	protected static final String TESTOBJECT_APP_ID = getEnvOrFail("TESTOBJECT_APP_ID");
-	protected static final String APPIUM_SERVER = getEnvOrDefault("APPIUM_SERVER", "https://app.testobject.com:443/api/appium/wd/hub");
-	protected static final String TESTOBJECT_DEVICE = getEnvOrDefault("TESTOBJECT_DEVICE", "iPhone_5_16GB_real");
-	protected static final String TESTOBJECT_APPIUM_VERSION = getEnvOrDefault("TESTOBJECT_APPIUM_VERSION", "1.5.2");
-	protected static final String TESTOBJECT_CACHE_DEVICE = getEnvOrDefault("TESTOBJECT_CACHE_DEVICE", "false");
+	private static final String TESTOBJECT_API_KEY = getEnvOrFail("TESTOBJECT_API_KEY");
+	private static final String TESTOBJECT_APP_ID = getEnvOrFail("TESTOBJECT_APP_ID");
+	static final String APPIUM_SERVER = getEnvOrDefault("APPIUM_SERVER", "https://app.testobject.com:443/api/appium/wd/hub");
+	static final String TESTOBJECT_DEVICE = getEnvOrDefault("TESTOBJECT_DEVICE", "iPhone_5_16GB_real");
+	static final String TESTOBJECT_APPIUM_VERSION = getEnvOrDefault("TESTOBJECT_APPIUM_VERSION", "1.5.2");
+	static final String TESTOBJECT_CACHE_DEVICE = getEnvOrDefault("TESTOBJECT_CACHE_DEVICE", "false");
 
-	protected IOSDriver driver;
+	IOSDriver driver;
 
 	@Before
 	public void setup() throws MalformedURLException {
