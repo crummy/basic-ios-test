@@ -50,6 +50,7 @@ public class WebTest extends AbstractTest {
 		String url = "http://www.amazon.com";
 		driver.get(url);
 		driver.rotate(ScreenOrientation.LANDSCAPE);
+		Thread.sleep(1000);
 		driver.rotate(ScreenOrientation.PORTRAIT);
 
 		takeScreenshot();
