@@ -16,6 +16,8 @@ public abstract class AbstractTest {
 	static final String TESTOBJECT_APPIUM_VERSION = getEnvOrDefault("TESTOBJECT_APPIUM_VERSION", "1.5.2");
 	static final String TESTOBJECT_CACHE_DEVICE = getEnvOrDefault("TESTOBJECT_CACHE_DEVICE", "false");
 	static String AUTOMATION_NAME = getEnvOrDefault("AUTOMATION_NAME", null);
+	private static String TIMEOUT_IN_MS = getEnvOrDefault("TIMEOUT_IN_MS", null);
+	private static String RETRIES = getEnvOrDefault("RETRIES", null);
 
 	IOSDriver driver;
 
@@ -28,6 +30,14 @@ public abstract class AbstractTest {
 		capabilities.setCapability("testobject_appium_version", TESTOBJECT_APPIUM_VERSION);
 		if (AUTOMATION_NAME != null) {
 			capabilities.setCapability("automationName", AUTOMATION_NAME);
+		}
+
+		if (TIMEOUT_IN_MS != null) {
+			capabilities.setCapability("testobject_session_creation_timeout", TIMEOUT_IN_MS);
+		}
+
+		if (RETRIES != null) {
+			capabilities.setCapability("testobject_session_creation_retry", RETRIES);
 		}
 
 		URL endpoint = new URL(APPIUM_SERVER);
