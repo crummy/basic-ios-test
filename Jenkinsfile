@@ -9,7 +9,7 @@ pipeline {
                 expression { params.APPIUM_SERVER == 'http://appium.staging.testobject.org/wd/hub' }
             }
             steps {
-                lock (resource: params.TESTOBJECT_DEVICE_ID) {
+                lock (resource: params.TESTOBJECT_DEVICE) {
                     sh "./gradlew clean test"
                 }
             }
