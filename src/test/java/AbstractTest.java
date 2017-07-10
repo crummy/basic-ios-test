@@ -15,9 +15,6 @@ public abstract class AbstractTest {
 	static final String TESTOBJECT_DEVICE = getEnvOrDefault("TESTOBJECT_DEVICE", "iPhone_5_16GB_real");
 	static final String TESTOBJECT_APPIUM_VERSION = getEnvOrDefault("TESTOBJECT_APPIUM_VERSION", "1.5.2");
 	static final String TESTOBJECT_CACHE_DEVICE = getEnvOrDefault("TESTOBJECT_CACHE_DEVICE", "false");
-	static String AUTOMATION_NAME = getEnvOrDefault("AUTOMATION_NAME", null);
-	private static String TESTOBJECT_ALLOCATION_RETRIES = getEnvOrDefault("TESTOBJECT_ALLOCATION_RETRIES", "1");
-	private static String TESTOBJECT_TIMEOUT = getEnvOrDefault("TESTOBJECT_TIMEOUT", "300000");
 
 	IOSDriver driver;
 
@@ -31,14 +28,20 @@ public abstract class AbstractTest {
 		if(TESTOBJECT_APP_ID != null) {
 			capabilities.setCapability("testobject_app_id", TESTOBJECT_APP_ID);
 		}
+
+		String AUTOMATION_NAME = System.getenv("AUTOMATION_NAME");
 		if (AUTOMATION_NAME != null) {
 			capabilities.setCapability("automationName", AUTOMATION_NAME);
 		}
-		if (TESTOBJECT_ALLOCATION_RETRIES != null) {
-			capabilities.setCapability("testobject_session_creation_retry", TESTOBJECT_ALLOCATION_RETRIES);
+
+		String TESTOBJECT_SESSION_CREATION_TIMEOUT = System.getenv("TESTOBJECT_SESSION_CREATION_TIMEOUT");
+		if (TESTOBJECT_SESSION_CREATION_TIMEOUT != null) {
+			capabilities.setCapability("testobject_session_creation_timeout", TESTOBJECT_SESSION_CREATION_TIMEOUT);
 		}
-		if (TESTOBJECT_TIMEOUT != null) {
-			capabilities.setCapability("testobject_session_creation_timeout", TESTOBJECT_TIMEOUT);
+
+		String TESTOBJECT_SESSION_CREATION_RETRY = System.getenv("TESTOBJECT_SESSION_CREATION_RETRY");
+		if (TESTOBJECT_SESSION_CREATION_RETRY != null) {
+			capabilities.setCapability("testobject_session_creation_retry", TESTOBJECT_SESSION_CREATION_RETRY);
 		}
 
 		URL endpoint = new URL(APPIUM_SERVER);
