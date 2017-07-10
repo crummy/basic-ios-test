@@ -14,8 +14,8 @@ public class WebTest extends AbstractTest {
 	private static String TESTOBJECT_API_KEY_WEB = getEnvOrFail("TESTOBJECT_API_KEY_WEB");
 	private static String TESTOBJECT_APP_ID_WEB = getEnvOrDefault("TESTOBJECT_APP_ID_WEB", "1");
 	private static String AUTOMATION_NAME = getEnvOrDefault("AUTOMATION_NAME", null);
-	private static String TIMEOUT_IN_MS = getEnvOrDefault("TIMEOUT_IN_MS", null);
-	private static String RETRIES = getEnvOrDefault("RETRIES", null);
+	private static String TESTOBJECT_ALLOCATION_RETRIES = getEnvOrDefault("TESTOBJECT_ALLOCATION_RETRIES", "1");
+	private static String TESTOBJECT_TIMEOUT = getEnvOrDefault("TESTOBJECT_TIMEOUT", "300000");
 
 	// Credentials differ slightly for the web test so we override setup().
 	@Before
@@ -27,16 +27,15 @@ public class WebTest extends AbstractTest {
 		capabilities.setCapability("testobject_app_id", TESTOBJECT_APP_ID_WEB);
 		capabilities.setCapability("testobject_appium_version", TESTOBJECT_APPIUM_VERSION);
 		capabilities.setCapability("testobject_cache_device", TESTOBJECT_CACHE_DEVICE);
+
 		if (AUTOMATION_NAME != null) {
 			capabilities.setCapability("automationName", AUTOMATION_NAME);
 		}
-
-		if (TIMEOUT_IN_MS != null) {
-			capabilities.setCapability("testobject_session_creation_timeout", TIMEOUT_IN_MS);
+		if (TESTOBJECT_ALLOCATION_RETRIES != null) {
+			capabilities.setCapability("testobject_session_creation_retry", TESTOBJECT_ALLOCATION_RETRIES);
 		}
-
-		if (RETRIES != null) {
-			capabilities.setCapability("testobject_session_creation_retry", RETRIES);
+		if (TESTOBJECT_TIMEOUT != null) {
+			capabilities.setCapability("testobject_session_creation_timeout", TESTOBJECT_TIMEOUT);
 		}
 
 		URL endpoint = new URL(APPIUM_SERVER);

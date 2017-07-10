@@ -10,14 +10,14 @@ import java.util.UUID;
 public abstract class AbstractTest {
 
 	private static final String TESTOBJECT_API_KEY = getEnvOrFail("TESTOBJECT_API_KEY");
-	private static final String TESTOBJECT_APP_ID = getEnvOrFail("TESTOBJECT_APP_ID");
+	private static final String TESTOBJECT_APP_ID = getEnvOrDefault("TESTOBJECT_APP_ID", null);
 	static final String APPIUM_SERVER = getEnvOrDefault("APPIUM_SERVER", "https://app.testobject.com:443/api/appium/wd/hub");
 	static final String TESTOBJECT_DEVICE = getEnvOrDefault("TESTOBJECT_DEVICE", "iPhone_5_16GB_real");
 	static final String TESTOBJECT_APPIUM_VERSION = getEnvOrDefault("TESTOBJECT_APPIUM_VERSION", "1.5.2");
 	static final String TESTOBJECT_CACHE_DEVICE = getEnvOrDefault("TESTOBJECT_CACHE_DEVICE", "false");
 	static String AUTOMATION_NAME = getEnvOrDefault("AUTOMATION_NAME", null);
-	private static String TIMEOUT_IN_MS = getEnvOrDefault("TIMEOUT_IN_MS", null);
-	private static String RETRIES = getEnvOrDefault("RETRIES", null);
+	private static String TESTOBJECT_ALLOCATION_RETRIES = getEnvOrDefault("TESTOBJECT_ALLOCATION_RETRIES", "1");
+	private static String TESTOBJECT_TIMEOUT = getEnvOrDefault("TESTOBJECT_TIMEOUT", "300000");
 
 	IOSDriver driver;
 
@@ -26,18 +26,19 @@ public abstract class AbstractTest {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability("testobject_device", TESTOBJECT_DEVICE);
 		capabilities.setCapability("testobject_api_key", TESTOBJECT_API_KEY);
-		capabilities.setCapability("testobject_app_id", TESTOBJECT_APP_ID);
 		capabilities.setCapability("testobject_appium_version", TESTOBJECT_APPIUM_VERSION);
+
+		if(TESTOBJECT_APP_ID != null) {
+			capabilities.setCapability("testobject_app_id", TESTOBJECT_APP_ID);
+		}
 		if (AUTOMATION_NAME != null) {
 			capabilities.setCapability("automationName", AUTOMATION_NAME);
 		}
-
-		if (TIMEOUT_IN_MS != null) {
-			capabilities.setCapability("testobject_session_creation_timeout", TIMEOUT_IN_MS);
+		if (TESTOBJECT_ALLOCATION_RETRIES != null) {
+			capabilities.setCapability("testobject_session_creation_retry", TESTOBJECT_ALLOCATION_RETRIES);
 		}
-
-		if (RETRIES != null) {
-			capabilities.setCapability("testobject_session_creation_retry", RETRIES);
+		if (TESTOBJECT_TIMEOUT != null) {
+			capabilities.setCapability("testobject_session_creation_timeout", TESTOBJECT_TIMEOUT);
 		}
 
 		URL endpoint = new URL(APPIUM_SERVER);
