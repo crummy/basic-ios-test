@@ -20,6 +20,7 @@ public abstract class AbstractTest {
 
 	@Before
 	public void setup() throws MalformedURLException {
+		System.out.println("setup()");
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability("testobject_device", TESTOBJECT_DEVICE);
 		capabilities.setCapability("testobject_api_key", TESTOBJECT_API_KEY);
