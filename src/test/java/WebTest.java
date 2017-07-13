@@ -46,7 +46,8 @@ public class WebTest extends AbstractTest {
 		String testUUID = UUID.randomUUID().toString();
 		System.out.println("TestUUID: " + testUUID);
 		capabilities.setCapability("testobject_testuuid", testUUID);
-
+		
+		System.out.println("Allocating driver with capabilities:\n" + capabilities);
 		driver = new IOSDriver(endpoint, capabilities);
 
 		System.out.println(driver.getCapabilities().getCapability("testobject_test_report_url"));
