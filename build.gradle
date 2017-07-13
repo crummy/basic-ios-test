@@ -19,7 +19,12 @@ dependencies {
 }
 
 test {
+    beforeTest{ descr ->
+        logger.warn("Starting Test ${descr.className} : ${descr.name}")
+     }
     testLogging {
         exceptionFormat = 'full'
     }
+    forkEvery = 1
+    maxParallelForks = 1
 }
