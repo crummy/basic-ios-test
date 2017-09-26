@@ -23,7 +23,7 @@ public class WebTest extends AbstractTest {
 		capabilities.setCapability("testobject_appium_version", getEnvOrDefault("TESTOBJECT_APPIUM_VERSION", "1.6.5"));
 
 		setOptionalCapability("automationName", "AUTOMATION_NAME");
-		setOptionalCapability("TESTOBJECT_DEVICE");
+		setOptionalCapability("testobject_device", "TESTOBJECT_DEVICE");
 		setOptionalCapability("deviceName", "DEVICE_NAME");
 		setOptionalCapability("platformVersion", "PLATFORM_VERSION");
 		setOptionalCapability("testobject_app_id", "TESTOBJECT_APP_ID_WEB");
