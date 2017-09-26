@@ -25,6 +25,7 @@ public abstract class AbstractTest {
 		setOptionalCapability("automationName", "AUTOMATION_NAME");
 		setOptionalCapability("TESTOBJECT_DEVICE");
 		setOptionalCapability("deviceName", "DEVICE_NAME");
+		setOptionalCapability("platformVersion", "PLATFORM_VERSION");
 		setOptionalCapability("TESTOBJECT_APP_ID");
 		setOptionalCapability("TESTOBJECT_CACHE_DEVICE");
 		setOptionalCapability("TESTOBJECT_SESSION_CREATION_TIMEOUT");
