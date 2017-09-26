@@ -7,38 +7,28 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class WebTest extends AbstractTest {
-	private static String TESTOBJECT_API_KEY_WEB = getEnvOrFail("TESTOBJECT_API_KEY_WEB");
-	private static String TESTOBJECT_APP_ID_WEB = getEnvOrDefault("TESTOBJECT_APP_ID_WEB", "1");
+	DesiredCapabilities capabilities;
 
 	// Credentials differ slightly for the web test so we override setup().
 	@Before
 	@Override
 	public void setup() throws MalformedURLException {
-		DesiredCapabilities capabilities = new DesiredCapabilities();
-		capabilities.setCapability("testobject_device", TESTOBJECT_DEVICE);
-		capabilities.setCapability("testobject_api_key", TESTOBJECT_API_KEY_WEB);
-		capabilities.setCapability("testobject_app_id", TESTOBJECT_APP_ID_WEB);
-		capabilities.setCapability("testobject_appium_version", TESTOBJECT_APPIUM_VERSION);
-		capabilities.setCapability("testobject_cache_device", TESTOBJECT_CACHE_DEVICE);
+		capabilities = new DesiredCapabilities();
+		capabilities.setCapability("testobject_api_key", getEnvOrFail("TESTOBJECT_API_KEY_WEB"));
+		capabilities.setCapability("testobject_appium_version", getEnvOrDefault("TESTOBJECT_APPIUM_VERSION", "1.6.5"));
+		capabilities.setCapability("automationName", getEnvOrDefault("AUTOMATION_NAME", "XCUITest"));
 
-		String AUTOMATION_NAME = System.getenv("AUTOMATION_NAME");
-		if (AUTOMATION_NAME != null) {
-			capabilities.setCapability("automationName", AUTOMATION_NAME);
-		}
-
-		String TESTOBJECT_SESSION_CREATION_TIMEOUT = System.getenv("TESTOBJECT_SESSION_CREATION_TIMEOUT");
-		if (TESTOBJECT_SESSION_CREATION_TIMEOUT != null) {
-			capabilities.setCapability("testobject_session_creation_timeout", TESTOBJECT_SESSION_CREATION_TIMEOUT);
-		}
-
-		String TESTOBJECT_SESSION_CREATION_RETRY = System.getenv("TESTOBJECT_SESSION_CREATION_RETRY");
-		if (TESTOBJECT_SESSION_CREATION_RETRY != null) {
-			capabilities.setCapability("testobject_session_creation_retry", TESTOBJECT_SESSION_CREATION_RETRY);
-		}
+		setOptionalCapability("TESTOBJECT_DEVICE");
+		setOptionalCapability("deviceName", "DEVICE_NAME");
+		setOptionalCapability("testobject_app_id", "TESTOBJECT_APP_ID_WEB");
+		setOptionalCapability("TESTOBJECT_CACHE_DEVICE");
+		setOptionalCapability("TESTOBJECT_SESSION_CREATION_TIMEOUT");
+		setOptionalCapability("TESTOBJECT_SESSION_CREATION_RETRY");
 
 		URL endpoint = new URL(APPIUM_SERVER);
 
@@ -74,5 +64,17 @@ public class WebTest extends AbstractTest {
 		} catch (Exception e) {
 			System.out.println("Exception while saving screenshot: " + e.getMessage());
 		}
+	}
+
+	private void setOptionalCapability(String var) {
+		Optional.ofNullable(System.getenv(var.toUpperCase()))
+				.filter(env -> !env.isEmpty())
+				.ifPresent(data -> capabilities.setCapability(var, data));
+	}
+
+	private void setOptionalCapability(String desiredCapabilityName, String environmentVariableName) {
+		Optional.ofNullable(System.getenv(environmentVariableName))
+				.filter(env -> !env.isEmpty())
+				.ifPresent(value -> capabilities.setCapability(desiredCapabilityName, value));
 	}
 }
