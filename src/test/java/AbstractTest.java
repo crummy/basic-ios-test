@@ -23,8 +23,8 @@ public abstract class AbstractTest {
 		capabilities.setCapability("testobject_appium_version", getEnvOrDefault("TESTOBJECT_APPIUM_VERSION", "1.6.5"));
 
 		setOptionalCapability("automationName", "AUTOMATION_NAME");
-		setOptionalCapability("TESTOBJECT_DEVICE");
 		setOptionalCapability("deviceName", "DEVICE_NAME");
+		setOptionalCapability("testobject_device", "TESTOBJECT_DEVICE");
 		setOptionalCapability("platformVersion", "PLATFORM_VERSION");
 		setOptionalCapability("TESTOBJECT_APP_ID");
 		setOptionalCapability("TESTOBJECT_CACHE_DEVICE");
