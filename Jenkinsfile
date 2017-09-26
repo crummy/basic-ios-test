@@ -7,8 +7,9 @@ def runTest() {
         }
         stage("test") {
             try {
+                def tests = env.TESTS.tokenize(',')
                 docker.image("java:8").inside("-v $HOME/.gradle:/root/.grade -v $HOME/.m2:/.m2") {
-                    sh "./gradlew clean test -i"
+                    runGradleTests(tests)
                 }
             } finally {
                 junit "**/test-results/test/TEST-*.xml"
@@ -17,6 +18,12 @@ def runTest() {
     }
 }
 
+def runGradleTests(tests) {
+    gradleCommand = tests.inject("./gradlew clean test -i ") { result, testName ->
+        result + " --tests ${testName}"
+    }
+    sh gradleCommand
+}
 
 try {
     runTest()
