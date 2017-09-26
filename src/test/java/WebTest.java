@@ -21,8 +21,8 @@ public class WebTest extends AbstractTest {
 		capabilities = new DesiredCapabilities();
 		capabilities.setCapability("testobject_api_key", getEnvOrFail("TESTOBJECT_API_KEY_WEB"));
 		capabilities.setCapability("testobject_appium_version", getEnvOrDefault("TESTOBJECT_APPIUM_VERSION", "1.6.5"));
-		capabilities.setCapability("automationName", getEnvOrDefault("AUTOMATION_NAME", "XCUITest"));
 
+		setOptionalCapability("automationName", "AUTOMATION_NAME");
 		setOptionalCapability("TESTOBJECT_DEVICE");
 		setOptionalCapability("deviceName", "DEVICE_NAME");
 		setOptionalCapability("testobject_app_id", "TESTOBJECT_APP_ID_WEB");
