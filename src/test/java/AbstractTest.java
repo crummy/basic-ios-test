@@ -5,48 +5,31 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.UUID;
 
 public abstract class AbstractTest {
 
-	private static final String TESTOBJECT_API_KEY = getEnvOrFail("TESTOBJECT_API_KEY");
-	private static final String TESTOBJECT_APP_ID = getEnvOrDefault("TESTOBJECT_APP_ID", null);
 	static final String APPIUM_SERVER = getEnvOrDefault("APPIUM_URL", "https://app.testobject.com:443/api/appium/wd/hub");
-	static final String TESTOBJECT_DEVICE = getEnvOrDefault("TESTOBJECT_DEVICE", "iPhone_5_16GB_real");
-	static final String TESTOBJECT_APPIUM_VERSION = getEnvOrDefault("TESTOBJECT_APPIUM_VERSION", "1.6.5");
-	static final String TESTOBJECT_CACHE_DEVICE = getEnvOrDefault("TESTOBJECT_CACHE_DEVICE", "false");
 
 	IOSDriver driver;
+	DesiredCapabilities capabilities;
 
 	@Before
 	public void setup() throws MalformedURLException {
 		System.out.println("setup()");
-		DesiredCapabilities capabilities = new DesiredCapabilities();
-		capabilities.setCapability("testobject_device", TESTOBJECT_DEVICE);
-		capabilities.setCapability("testobject_api_key", TESTOBJECT_API_KEY);
-		capabilities.setCapability("testobject_appium_version", TESTOBJECT_APPIUM_VERSION);
-		capabilities.setCapability("testobject_cache_device", TESTOBJECT_CACHE_DEVICE);
+		capabilities = new DesiredCapabilities();
+		capabilities.setCapability("testobject_api_key", getEnvOrFail("TESTOBJECT_API_KEY"));
+		capabilities.setCapability("testobject_appium_version", getEnvOrDefault("TESTOBJECT_APPIUM_VERSION", "1.6.5"));
 
-		if(TESTOBJECT_APP_ID != null) {
-			capabilities.setCapability("testobject_app_id", TESTOBJECT_APP_ID);
-		}
-
-		String AUTOMATION_NAME = System.getenv("AUTOMATION_NAME");
-		if (AUTOMATION_NAME != null) {
-			capabilities.setCapability("automationName", AUTOMATION_NAME);
-		}
-
-		String TESTOBJECT_SESSION_CREATION_TIMEOUT = System.getenv("TESTOBJECT_SESSION_CREATION_TIMEOUT");
-		if (TESTOBJECT_SESSION_CREATION_TIMEOUT != null) {
-			capabilities.setCapability("testobject_session_creation_timeout", TESTOBJECT_SESSION_CREATION_TIMEOUT);
-		}
-
-		String TESTOBJECT_SESSION_CREATION_RETRY = System.getenv("TESTOBJECT_SESSION_CREATION_RETRY");
-		if (TESTOBJECT_SESSION_CREATION_RETRY != null) {
-			capabilities.setCapability("testobject_session_creation_retry", TESTOBJECT_SESSION_CREATION_RETRY);
-		}
-
-		URL endpoint = new URL(APPIUM_SERVER);
+		setOptionalCapability("automationName", "AUTOMATION_NAME");
+		setOptionalCapability("TESTOBJECT_DEVICE");
+		setOptionalCapability("deviceName", "DEVICE_NAME");
+		setOptionalCapability("platformVersion", "PLATFORM_VERSION");
+		setOptionalCapability("TESTOBJECT_APP_ID");
+		setOptionalCapability("TESTOBJECT_CACHE_DEVICE");
+		setOptionalCapability("TESTOBJECT_SESSION_CREATION_TIMEOUT");
+		setOptionalCapability("TESTOBJECT_SESSION_CREATION_RETRY");
 
 		// We generate a random UUID for later lookup in logs for debugging
 		String testUUID = UUID.randomUUID().toString();
@@ -54,7 +37,7 @@ public abstract class AbstractTest {
 		capabilities.setCapability("testobject_testuuid", testUUID);
 
 		System.out.println("Allocating driver with capabilities:\n" + capabilities);
-		driver = new IOSDriver(endpoint, capabilities);
+		driver = new IOSDriver(new URL(APPIUM_SERVER), capabilities);
 
 		System.out.println(driver.getCapabilities().getCapability("testobject_test_report_url"));
 		System.out.println(driver.getCapabilities().getCapability("testobject_test_live_view_url"));
@@ -83,6 +66,18 @@ public abstract class AbstractTest {
 		} else {
 			return value;
 		}
+	}
+
+	private void setOptionalCapability(String var) {
+		Optional.ofNullable(System.getenv(var.toUpperCase()))
+				.filter(env -> !env.isEmpty())
+				.ifPresent(data -> capabilities.setCapability(var, data));
+	}
+
+	private void setOptionalCapability(String desiredCapabilityName, String environmentVariableName) {
+		Optional.ofNullable(System.getenv(environmentVariableName))
+				.filter(env -> !env.isEmpty())
+				.ifPresent(value -> capabilities.setCapability(desiredCapabilityName, value));
 	}
 
 }
