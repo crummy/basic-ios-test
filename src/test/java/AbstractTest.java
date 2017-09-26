@@ -13,7 +13,7 @@ public abstract class AbstractTest {
 	private static final String TESTOBJECT_APP_ID = getEnvOrDefault("TESTOBJECT_APP_ID", null);
 	static final String APPIUM_SERVER = getEnvOrDefault("APPIUM_URL", "https://app.testobject.com:443/api/appium/wd/hub");
 	static final String TESTOBJECT_DEVICE = getEnvOrDefault("TESTOBJECT_DEVICE", "iPhone_5_16GB_real");
-	static final String TESTOBJECT_APPIUM_VERSION = getEnvOrDefault("TESTOBJECT_APPIUM_VERSION", "1.5.2");
+	static final String TESTOBJECT_APPIUM_VERSION = getEnvOrDefault("TESTOBJECT_APPIUM_VERSION", "1.6.5");
 	static final String TESTOBJECT_CACHE_DEVICE = getEnvOrDefault("TESTOBJECT_CACHE_DEVICE", "false");
 
 	IOSDriver driver;
@@ -25,6 +25,7 @@ public abstract class AbstractTest {
 		capabilities.setCapability("testobject_device", TESTOBJECT_DEVICE);
 		capabilities.setCapability("testobject_api_key", TESTOBJECT_API_KEY);
 		capabilities.setCapability("testobject_appium_version", TESTOBJECT_APPIUM_VERSION);
+		capabilities.setCapability("testobject_cache_device", TESTOBJECT_CACHE_DEVICE);
 
 		if(TESTOBJECT_APP_ID != null) {
 			capabilities.setCapability("testobject_app_id", TESTOBJECT_APP_ID);
