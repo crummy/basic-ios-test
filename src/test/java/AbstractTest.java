@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractTest {
 
@@ -38,6 +39,8 @@ public abstract class AbstractTest {
 
 		System.out.println("Allocating driver with capabilities:\n" + capabilities);
 		driver = new IOSDriver(new URL(APPIUM_SERVER), capabilities);
+
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
 		System.out.println(driver.getCapabilities().getCapability("testobject_test_report_url"));
 		System.out.println(driver.getCapabilities().getCapability("testobject_test_live_view_url"));
